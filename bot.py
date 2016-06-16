@@ -71,6 +71,7 @@ class Bot():
                 flair_class = self.score_class(score)
                 flair_text = "+"+str(score)
                 r.set_flair(comment.subreddit, comment.author, flair_text=flair_text, flair_css_class = flair_class)
+                print('reset flair for /u/'+comment.author.name+' in /r/'+comment.subreddit.display_name)
                 continue
 
 
@@ -133,6 +134,7 @@ class Bot():
             #save new authorpoints to wiki
             reason = parent_comment.author.name+" "+flair_text+" "+comment.link_id
             r.edit_wiki_page(sub,"plusbot",json.dumps(self.author_points),reason=reason)
+            print(parent_comment.author.name+" scored in /r/"+comment.subreddit.display_name)
 
             
 
