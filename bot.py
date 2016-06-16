@@ -91,8 +91,18 @@ class Bot():
             flair_class = "score-t1"
             flair_text = text
 
+            #set flair class by score
+            if score >=3:
+                flair_class = "score-t2"
+            if score >=10:
+                flair_class = "score-t3"
+            if score >=30:
+                flair_class = "score-t4"
+
             #if user has special flair, preserve it and the text. Otherwise set flair class by score.
-            if "contributor" in flair['flair_css_class']:
+            if flair['flair_css_class'] is None:
+                pass
+            elif "contributor" in flair['flair_css_class']:
                 flair_text = "Contributor "+text
                 flair_class = "contributor"
             elif "regexninja" in flair['flair_css_class']:
@@ -108,14 +118,7 @@ class Bot():
             elif "plain" in flair["flair_css_class"]:
                 flair_text = flair['flair_text']
                 flair_class = "plain"
-            else:
-                #set flair class by score
-                if score >=3:
-                    flair_class = "score-t2"
-                if score >=10:
-                    flair_class = "score-t3"
-                if score >=30:
-                    flair_class = "score-t4"
+
 
             #set new flair text and save to reddit flair_class}
             r.set_flair(sub,parent_comment.author,flair_text = flair_text, flair_css_class = flair_class)
