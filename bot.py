@@ -75,13 +75,13 @@ class Bot():
                 continue
 
             #add user and link to authorpoints
-            if parent_comment.author not in self.author_points:
-                self.author_points[parent_comment.author]=[]
+            if parent_comment.author.name not in self.author_points:
+                self.author_points[parent_comment.author.name]=[]
 
-            self.author_points[parent_comment.author].append(comment.link_id)
+            self.author_points[parent_comment.author.name].append(comment.link_id)
 
             #get new score and flair text
-            score = len(self.author_points[parent_comment.author])
+            score = len(self.author_points[parent_comment.author.name])
             text = "+"+str(score)
 
             #fetch user flair
