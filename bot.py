@@ -44,11 +44,35 @@ class Bot():
                 self.link_authors.append((link_id,author.name))
                 return author.name
 
+    def score_class(self, score):
+
+        flair_class = "score-t1"
+        if score >=3:
+            flair_class = "score-t2"
+        if score >=10:
+            flair_class = "score-t3"
+        if score >=30:
+            flair_class = "score-t4"
+
+        return flair_class
+
         
 
     def scan_comments(self):
 
         for comment in praw.helpers.comment_stream(r, "AutoModerator", limit=100, verbosity=0):
+
+            #Flair reset
+            if comment.body == "<>":
+                comment.remove()
+                score = 0
+                if comment.author.name in self.author_points:
+                    score = len(self.author_points[comment.author.name])
+                flair_class = self.score_class(score)
+                flair_text = "+"+str(score)
+                r.set_flair(sub, comment.author, flair_text=flair_text, flair_css_class = flair_class)
+                continue
+
 
             #if comment isn't by OP then we're not interested
             op = self.get_OP(comment.link_id)
@@ -93,16 +117,9 @@ class Bot():
             flair = r.get_flair(sub,parent_comment.author)
 
             #variables for new flair
-            flair_class = "score-t1"
+            flair_class = self.score_class(score)
             flair_text = text
 
-            #set flair class by score
-            if score >=3:
-                flair_class = "score-t2"
-            if score >=10:
-                flair_class = "score-t3"
-            if score >=30:
-                flair_class = "score-t4"
 
             #if user has special flair, preserve it and the text. Otherwise set flair class by score.
             if flair['flair_css_class'] is None:
