@@ -87,35 +87,38 @@ class Bot():
             #fetch user flair
             flair = r.get_flair(sub,parent_comment.author)
 
-            #ugly hack
-            if flair['flair_css_class'] == None:
-                flair['flair_css_class'] = "score-t1"
+            #variables for new flair
+            flair_class = "score-t1"
+            flair_text = text
 
             #if user has special flair, preserve it and the text. Otherwise set flair class by score.
             if "contributor" in flair['flair_css_class']:
-                text = "Contributor "+text
+                flair_text = "Contributor "+text
+                flair_class = "contributor"
             elif "regexninja" in flair['flair_css_class']:
-                text = "Regex Ninja "+text
+                flair_text = "Regex Ninja "+text
+                flair_class = "regexninja"
             elif "sorcerer" in flair['flair_css_class']:
-                text = "Open Sorcerer "+text
+                flair_text = "Open Sorcerer "+text
+                flair_class = "sorcerer"
             elif "user" in flair["flair_css_class"]:
                 #certain unique flairs are passed on
-                text = flair['flair_text']
-            elif "plain" in flair["flair_css_class"]:
-                text = flair['flair_text']
+                flair_text = flair['flair_text']
+                flair_class = fair['flair_css_class']
+            elif "plain" in flair["flair_css_class"]
+                flair_text = flair['flair_text']
+                flair_class = "plain"
             else:
                 #set flair class by score
-                flair["flair_css_class"] = "score-t1"
                 if score >=3:
-                    flair["flair_css_class"] = "score-t2"
+                    flair_class = "score-t2"
                 if score >=10:
-                    flair["flair_css_class"] = "score-t3"
+                    flair_class = "score-t3"
                 if score >=30:
-                    flair["flair_css_class"] = "score-t4"
+                    flair_class = "score-t4"
 
-            #set new flair text and save to reddit
-            flair['flair_text']=text
-            r.set_flair_csv(sub,flair)
+            #set new flair text and save to reddit flair_class}
+            r.set_flair(sub,parent_comment.author,flair_text = flair_text, flair_css_class = flair_class)
 
             #save new authorpoints to wiki
             reason = parent_comment.author.name+" "+comment.link_id+" "+text
