@@ -70,6 +70,10 @@ class Bot():
             if parent_comment.author is None:
                 continue
 
+            #make sure they are different people
+            if parent_comment.author.name == comment.author.name:
+                continue
+
             #add user and link to authorpoints
             if parent_comment.author not in self.author_points:
                 self.author_points[parent_comment.author]=[]
