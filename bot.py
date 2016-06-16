@@ -63,7 +63,7 @@ class Bot():
         for comment in praw.helpers.comment_stream(r, "AutoModerator", limit=100, verbosity=0):
 
             #Flair reset
-            if comment.body == "<>":
+            if comment.author_flair_css_class == "reset":
                 comment.remove()
                 score = 0
                 if comment.author.name in self.author_points:
@@ -113,8 +113,6 @@ class Bot():
             score = len(self.author_points[parent_comment.author.name])
             text = "+"+str(score)
 
-            #fetch user flair
-            flair = r.get_flair(sub,parent_comment.author)
 
             #variables for new flair
             flair_class = self.score_class(score)
@@ -122,23 +120,28 @@ class Bot():
 
 
             #if user has special flair, preserve it and the text. Otherwise set flair class by score.
-            if flair['flair_css_class'] is None:
+            if parent_comment.author_flair_css_class is None:
                 pass
-            elif "contributor" in flair['flair_css_class']:
+            
+            elif "contributor" in parent_comment.author_flair_css_class:
                 flair_text = "Contributor "+text
                 flair_class = "contributor"
-            elif "regexninja" in flair['flair_css_class']:
+
+            elif "regexninja" in parent_comment.author_flair_css_class:
                 flair_text = "Regex Ninja "+text
                 flair_class = "regexninja"
-            elif "sorcerer" in flair['flair_css_class']:
+
+            elif "sorcerer" in parent_comment.author_flair_css_class:
                 flair_text = "Open Sorcerer "+text
                 flair_class = "sorcerer"
-            elif "user" in flair["flair_css_class"]:
+
+            elif "user" in parent_comment.author_flair_css_class:
                 #certain unique flairs are passed on
-                flair_text = flair['flair_text']
-                flair_class = fair['flair_css_class']
-            elif "plain" in flair["flair_css_class"]:
-                flair_text = flair['flair_text']
+                flair_text = parent_comment.author_flair_text
+                flair_class = parent_comment.author_flair_css_class
+                
+            elif "plain" in parent_comment.author_flair_css_class:
+                flair_text = parent_comment.author_flair_text
                 flair_class = "plain"
 
 
