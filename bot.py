@@ -105,7 +105,7 @@ class Bot():
                 #certain unique flairs are passed on
                 flair_text = flair['flair_text']
                 flair_class = fair['flair_css_class']
-            elif "plain" in flair["flair_css_class"]
+            elif "plain" in flair["flair_css_class"]:
                 flair_text = flair['flair_text']
                 flair_class = "plain"
             else:
