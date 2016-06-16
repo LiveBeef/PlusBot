@@ -14,7 +14,7 @@ class Bot():
     def __init__(self):
 
         #login
-        r.login('captainmeta4',os.environ.get('password'))
+        r.login('PlusBot',os.environ.get('password'))
 
         #store up to 100 link/author pairs
         self.link_authors = deque([],maxlen=100)
