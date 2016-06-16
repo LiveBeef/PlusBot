@@ -93,6 +93,8 @@ class Bot():
             elif "user" in flair["flair_css_class"]:
                 #certain unique flairs are passed on
                 text = flair['flair_text']
+            elif "plain" in flair["flair_css_class"]
+                text = flair['flair_text']
             else:
                 #set flair class by score
                 flair["flair_css_class"] = "score-t1"
