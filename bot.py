@@ -87,6 +87,10 @@ class Bot():
             #fetch user flair
             flair = r.get_flair(sub,parent_comment.author)
 
+            #ugly hack
+            if flair['flair_css_class'] == None:
+                flair['flair_css_class'] = "score-t1"
+
             #if user has special flair, preserve it and the text. Otherwise set flair class by score.
             if "contributor" in flair['flair_css_class']:
                 text = "Contributor "+text
