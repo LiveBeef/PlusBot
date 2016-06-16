@@ -131,7 +131,7 @@ class Bot():
                 r.set_flair(comment.subreddit,parent_comment.author,flair_text = flair_text, flair_css_class = flair_class)
 
             #save new authorpoints to wiki
-            reason = parent_comment.author.name+" "+comment.link_id+" "+text
+            reason = parent_comment.author.name+" "+flair_text+" "+comment.link_id
             r.edit_wiki_page(sub,"plusbot",json.dumps(self.author_points),reason=reason)
 
             
