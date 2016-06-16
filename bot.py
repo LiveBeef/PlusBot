@@ -74,10 +74,15 @@ class Bot():
             if parent_comment.author.name == comment.author.name:
                 continue
 
-            #add user and link to authorpoints
+            #add user to authorpoints
             if parent_comment.author.name not in self.author_points:
                 self.author_points[parent_comment.author.name]=[]
 
+            #check to see if user has scored this thread
+            if comment.link_id in self.author_points[parent_comment.author.name]:
+                continue
+
+            #add user to authorpoints
             self.author_points[parent_comment.author.name].append(comment.link_id)
 
             #get new score and flair text
