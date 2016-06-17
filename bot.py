@@ -64,7 +64,6 @@ class Bot():
 
             #Flair reset
             if comment.author_flair_css_class == "reset":
-                comment.remove()
                 score = 0
                 if comment.author.name in self.author_points:
                     score = len(self.author_points[comment.subreddit.display_name][comment.author.name])
