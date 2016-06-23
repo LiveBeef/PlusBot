@@ -5,7 +5,7 @@ import json
 import os
 
 #Set globals
-r=praw.Reddit("/r/AutoModerator Contribution Bot")
+r=praw.Reddit("PlusBot by /u/captainmeta4")
 sub = r.get_subreddit('captainmeta4bots')
 
 
@@ -131,7 +131,8 @@ class Bot():
                 r.set_flair(comment.subreddit,parent_comment.author,flair_text = flair_text, flair_css_class = flair_class)
 
             #save new authorpoints to wiki
-            reason = parent_comment.author.name+" "+flair_text+" "+comment.link_id
+
+            reason = "/u/"+parent_comment.author.name+" has "+flair_text+" in /r/"+comment.subreddit.display_name" at "+comment.link_id
             r.edit_wiki_page(sub,"plusbot",json.dumps(self.author_points),reason=reason)
             print(parent_comment.author.name+" scored in /r/"+comment.subreddit.display_name)
 
