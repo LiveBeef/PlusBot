@@ -132,7 +132,7 @@ class Bot():
 
             #save new authorpoints to wiki
 
-            reason = "/u/"+parent_comment.author.name+" has "+flair_text+" in /r/"+comment.subreddit.display_name" at "+comment.link_id
+            reason = "/u/"+parent_comment.author.name+" has "+flair_text+" in /r/"+comment.subreddit.display_name+" at "+comment.link_id
             r.edit_wiki_page(sub,"plusbot",json.dumps(self.author_points),reason=reason)
             print(parent_comment.author.name+" scored in /r/"+comment.subreddit.display_name)
 
