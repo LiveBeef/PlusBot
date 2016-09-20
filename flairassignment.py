@@ -8,7 +8,7 @@ r.login(input('username: '),input('password: '))
 subreddit = r.get_subreddit(input('subreddit: '))
 
 #get flair list
-flairlist = r.get_flair_list(subreddit)
+flairlist = r.get_flair_list(subreddit, limit=None)
 
 #this is important enough that it's worth protecting against a typo
 new_class = input('New CSS class (no spaces allowed):')
