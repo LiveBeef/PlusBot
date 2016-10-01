@@ -23,13 +23,28 @@ for flair in flairlist:
 
     new_flair = flair
     
-    if flair['flair_css_class']==None:
+    if not flair['flair_css_class']:
         new_flair['flair_css_class']=new_class
         new_flairs.append(new_flair)
 
 #Set new flairs
-r.set_flair_csv(subreddit, new_flairs)
+if new_flairs:
+    r.set_flair_csv(subreddit, new_flairs)
+
+#get flair choices
+f=r.get_flair_choices(subreddit)['choices']
+
+#clear existing flair templates
+r.clear_flair_templates(subreddit)
 
 #Ensure that userflairs are enabled and displayed and that users can reset their flair to their points
 r.add_flair_template(subreddit, text = "Score (comment anywhere)", css_class = "reset")
+
+
+for flair in f:
+    if not flair['flair_css_class']:
+        r.add_flair_template(subreddit, text=flair['flair_text'], css_class=new_class)
+    else:
+        r.add_flair_template(subreddit, text=flair['flair_text'],css_class=flair['flair_css_class'])
+
 
